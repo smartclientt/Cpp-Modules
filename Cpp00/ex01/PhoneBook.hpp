@@ -7,9 +7,9 @@
 #include "Contact.hpp"
 
 class PhoneBook{
-	// private :
-	public :
+	private :
 		Contact contact[8];
+	public :
 		PhoneBook(void);
 		~PhoneBook(void);
 

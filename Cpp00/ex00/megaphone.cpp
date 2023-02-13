@@ -8,7 +8,7 @@ int main(int ac, char **av)
 {
 	int			i;
 	int 		j;
-	string	str;
+	string		str;
 
 	if (ac >= 2)
 	{
