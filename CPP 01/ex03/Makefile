@@ -1,8 +1,9 @@
-NAME		=	PhoneBook
-SRCS		=	main.cpp PhoneBook.cpp Contact.cpp
+NAME		=	Violence
+SRCS		=	main.cpp \
+				HumanA.cpp HumanB.cpp Weapon.cpp
 OBJS		=	$(SRCS:.cpp=.o)
-HEADR		=	PhoneBook.hpp Contact.hpp
 CPP			=	c++
+HEADR		=	HumanA.hpp HumanB.hpp Weapon.hpp
 CFLAG		=	-Wall -Werror -Wextra -std=c++98
 RM			=	rm -rf
 
@@ -13,7 +14,7 @@ $(NAME)		:	$(OBJS) $(HEADR)
 %.o			:	%.cpp
 				$(CPP) $(CFLAG) -c $< -o $@
 clean		:	$(OBJS)
-				$(RM) $(OBJS)			
+				$(RM) $(OBJS)	
 fclean		:	clean
 				$(RM) $(NAME)
 re			:	fclean all

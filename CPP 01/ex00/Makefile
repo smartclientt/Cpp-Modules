@@ -1,7 +1,8 @@
-NAME		=	PhoneBook
-SRCS		=	main.cpp PhoneBook.cpp Contact.cpp
+NAME		=	Brainz
+SRCS		=	main.cpp \
+				newZombie.cpp randomChump.cpp Zombie.cpp
 OBJS		=	$(SRCS:.cpp=.o)
-HEADR		=	PhoneBook.hpp Contact.hpp
+HEADR		=	Zombie.hpp
 CPP			=	c++
 CFLAG		=	-Wall -Werror -Wextra -std=c++98
 RM			=	rm -rf

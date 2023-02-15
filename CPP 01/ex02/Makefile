@@ -1,19 +1,18 @@
-NAME		=	PhoneBook
-SRCS		=	main.cpp PhoneBook.cpp Contact.cpp
+NAME		=	isBrain
+SRCS		=	main.cpp
 OBJS		=	$(SRCS:.cpp=.o)
-HEADR		=	PhoneBook.hpp Contact.hpp
 CPP			=	c++
 CFLAG		=	-Wall -Werror -Wextra -std=c++98
 RM			=	rm -rf
 
 all			:	$(NAME)
 
-$(NAME)		:	$(OBJS) $(HEADR)
+$(NAME)		:	$(OBJS)
 				$(CPP) $(CFLAG) $(SRCS) -o $(NAME)
 %.o			:	%.cpp
 				$(CPP) $(CFLAG) -c $< -o $@
 clean		:	$(OBJS)
-				$(RM) $(OBJS)			
+				$(RM) $(OBJS)	
 fclean		:	clean
 				$(RM) $(NAME)
 re			:	fclean all

@@ -1,7 +1,8 @@
-NAME		=	PhoneBook
-SRCS		=	main.cpp PhoneBook.cpp Contact.cpp
+NAME		=	Moar
+SRCS		=	main.cpp \
+				zombieHorde.cpp Zombie.cpp
 OBJS		=	$(SRCS:.cpp=.o)
-HEADR		=	PhoneBook.hpp Contact.hpp
+HEADR		=	Zombie.hpp
 CPP			=	c++
 CFLAG		=	-Wall -Werror -Wextra -std=c++98
 RM			=	rm -rf
@@ -13,7 +14,7 @@ $(NAME)		:	$(OBJS) $(HEADR)
 %.o			:	%.cpp
 				$(CPP) $(CFLAG) -c $< -o $@
 clean		:	$(OBJS)
-				$(RM) $(OBJS)			
+				$(RM) $(OBJS)	
 fclean		:	clean
 				$(RM) $(NAME)
 re			:	fclean all

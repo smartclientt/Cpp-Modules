@@ -53,13 +53,13 @@ void	PhoneBook::search_contact(int nbr_contact)
 	while (index.empty());
 	if (index.empty())
 		exit(0);
-	if (index.length() == 1 && std::isdigit(index[0]) && stoi(index) <= nbr_contact && stoi(index) >= 1)
+	if (index.length() == 1 && std::isdigit(index[0]) && atoi(index.c_str()) <= nbr_contact && atoi(index.c_str()) >= 1)
 	{
-		std::cout << "first name: " << getContact()[std::stoi(index) - 1].getFirstName() << std::endl;
-		std::cout << "last name: " << getContact()[std::stoi(index) - 1].getLastName() << std::endl;
-		std::cout << "nick name: " << getContact()[std::stoi(index) - 1].getNickName() << std::endl;
-		std::cout << "phone nbr: " << getContact()[std::stoi(index) - 1].getPhoneNbr() << std::endl;
-		std::cout << "darkest secret: " << getContact()[std::stoi(index) - 1].getDarkest() << std::endl;
+		std::cout << "first name: " << getContact()[std::atoi(index.c_str()) - 1].getFirstName() << std::endl;
+		std::cout << "last name: " << getContact()[std::atoi(index.c_str()) - 1].getLastName() << std::endl;
+		std::cout << "nick name: " << getContact()[std::atoi(index.c_str()) - 1].getNickName() << std::endl;
+		std::cout << "phone nbr: " << getContact()[std::atoi(index.c_str()) - 1].getPhoneNbr() << std::endl;
+		std::cout << "darkest secret: " << getContact()[std::atoi(index.c_str()) - 1].getDarkest() << std::endl;
 	}
 	else
 		std::cout << "Input invalid !!" << std::endl;

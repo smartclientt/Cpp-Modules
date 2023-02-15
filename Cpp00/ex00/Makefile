@@ -10,7 +10,7 @@ all			:	$(NAME)
 $(NAME)		:	$(OBJS)
 				$(CPP) $(CFLAG) $(SRCS) -o $(NAME)
 %.o			:	%.cpp
-				$(CPP) $(CFLAGS) -c $< -o $@
+				$(CPP) $(CFLAG) -c $< -o $@
 clean		:	$(OBJS)
 				$(RM) $(OBJS)			
 fclean		:	clean
