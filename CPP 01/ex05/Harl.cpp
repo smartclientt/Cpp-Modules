@@ -5,7 +5,7 @@ void	Harl::complain(std::string level)
 	std::string word[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
 	void (Harl::*func[])() = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
-	
+
 	for(int i = 0; i < 4; i++)
 	{
 		if(word[i] == level)
