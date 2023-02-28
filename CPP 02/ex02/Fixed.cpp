@@ -67,30 +67,30 @@ bool Fixed::operator>= (const Fixed& fixed) const
 }
 
 // Overloading Incriment and Decrement
-const Fixed& Fixed::operator++()
+Fixed Fixed::operator++()
 {
 	++this->_fixed_value;
 	return (*this);
 }
 
-const Fixed& Fixed::operator--()
+Fixed Fixed::operator--()
 {
 	--this->_fixed_value;
 	return (*this);
 }
 
-const Fixed& Fixed::operator++(int)
+Fixed Fixed::operator++(int)
 {
-	const Fixed& befor_increment = (*this);
+	Fixed befor_inc = *this;
 	++(*this);
-	return (befor_increment);
+	return (befor_inc);	
 }
 
-const Fixed& Fixed::operator--(int)
+Fixed Fixed::operator--(int)
 {
-	const Fixed& after_increment = (*this);
+	Fixed befor_dec = *this;
 	--(*this);
-	return (after_increment);
+	return (befor_dec);
 }
 
 
@@ -112,14 +112,14 @@ Fixed const Fixed::operator-(const Fixed& fixed) const
 Fixed const Fixed::operator*(const Fixed& fixed) const
 {
 	Fixed f;
-	f._fixed_value = this->_fixed_value * fixed._fixed_value / pow(2, _nbr_fract_bit);
+	f._fixed_value = this->_fixed_value * fixed._fixed_value / (1 << _nbr_fract_bit);
 	return f;
 }
 
 Fixed const Fixed::operator/(const Fixed& fixed) const
 {
 	Fixed f;
-	f._fixed_value = (this->_fixed_value * pow(2, _nbr_fract_bit) / fixed._fixed_value);
+	f._fixed_value = (this->_fixed_value * (1 << _nbr_fract_bit) / fixed._fixed_value);
 	return f;
 }
 
@@ -128,12 +128,12 @@ Fixed const Fixed::operator/(const Fixed& fixed) const
 // member functions
 float	Fixed::toFloat(void) const
 {
-	return (getRawBits() / roundf(pow(2, _nbr_fract_bit)));
+	return (getRawBits() / (float)(1 << _nbr_fract_bit));
 }
 
 int		Fixed::toInt(void) const
 {
-	return (getRawBits() / roundf(pow(2, _nbr_fract_bit)));
+	return (getRawBits() / (1 << _nbr_fract_bit));
 }
 
 // getters
@@ -148,19 +148,20 @@ void Fixed::setRawBits(int const raw)
 	_fixed_value = raw;
 }
 
-// Constructors and Destuctor
+//constructor
+
 Fixed::Fixed(): _fixed_value(0)
 {
 }
 
 Fixed::Fixed(const int fixed_value)
 {
-	_fixed_value = roundf(fixed_value * pow(2, _nbr_fract_bit));
+	_fixed_value = fixed_value * (1 << _nbr_fract_bit);
 }
 
 Fixed::Fixed(const float float_value)
 {
-	_fixed_value = roundf(float_value * pow(2, _nbr_fract_bit));
+	_fixed_value = roundf(float_value * (1 << _nbr_fract_bit));
 }
 
 Fixed::Fixed(const Fixed& fixed)
@@ -177,6 +178,7 @@ Fixed& Fixed::operator= (const Fixed& fixed)
 Fixed::~Fixed()
 {
 }
+
 
 // overloading << operator function
 std::ostream& operator<< (std::ostream& out, const Fixed& fixed)

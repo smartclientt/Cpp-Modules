@@ -5,12 +5,12 @@ const int Fixed::_nbr_fract_bit = 8;
 // member functions
 float	Fixed::toFloat(void) const
 {
-	return (getRawBits() / roundf(pow(2, _nbr_fract_bit)));
+	return (getRawBits() / (float)(1 << _nbr_fract_bit));
 }
 
 int		Fixed::toInt(void) const
 {
-	return (getRawBits() / roundf(pow(2, _nbr_fract_bit)));
+	return (getRawBits() / (1 << _nbr_fract_bit));
 }
 
 // getters
@@ -35,13 +35,13 @@ Fixed::Fixed(): _fixed_value(0)
 Fixed::Fixed(const int fixed_value)
 {
 	std::cout << "Int constructor called" << std::endl;
-	_fixed_value = roundf(fixed_value * pow(2, _nbr_fract_bit));
+	_fixed_value = fixed_value * (1 << _nbr_fract_bit);
 }
 
 Fixed::Fixed(const float float_value)
 {
 	std::cout << "Float constructor called" << std::endl;
-	_fixed_value = roundf(float_value * pow(2, _nbr_fract_bit));
+	_fixed_value = roundf(float_value * (1 << _nbr_fract_bit));
 }
 
 Fixed::Fixed(const Fixed& fixed)
