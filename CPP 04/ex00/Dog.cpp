@@ -13,7 +13,7 @@ Dog::Dog(): Animal("Dog")
 	std::cout << "Dog Constructor" << std::endl;
 }
 
-Dog::Dog(const Dog& dog)
+Dog::Dog(const Dog& dog): Animal("Dog")
 {
 	std::cout << "Dog Copy Constructor" << std::endl;
 	(*this) = dog;

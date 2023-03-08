@@ -23,7 +23,7 @@ Animal::Animal(const std::string type): _type(type)
 	std::cout << "Animal Parametter Constructor" << std::endl;
 }
 
-Animal::Animal(const Animal& animal)
+Animal::Animal(const Animal& animal): _type("Random")
 {
 	std::cout << "Animal Copy Constructor" << std::endl;
 	(*this) = animal;

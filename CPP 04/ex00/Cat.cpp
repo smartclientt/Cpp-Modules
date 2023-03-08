@@ -12,7 +12,7 @@ Cat::Cat(): Animal("Cat")
 	std::cout << "Cat Constructor" << std::endl;
 }
 
-Cat::Cat(const Cat& cat)
+Cat::Cat(const Cat& cat): Animal("Cat")
 {
 	std::cout << "Cat Copy Constructor" << std::endl;
 	(*this) = cat;

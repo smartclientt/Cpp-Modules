@@ -8,13 +8,12 @@ void	Dog::makeSound() const
 
 
 // constructor and destructor
-Dog::Dog(): Animal("Dog")
+Dog::Dog(): Animal("Dog"), _brain(new Brain())
 {
 	std::cout << "Dog Constructor" << std::endl;
-	_brain = new Brain();
 }
 
-Dog::Dog(const Dog& dog)
+Dog::Dog(const Dog& dog): Animal("Dog"), _brain(new Brain())
 {
 	std::cout << "Dog Copy Constructor" << std::endl;
 	(*this) = dog;
@@ -23,6 +22,9 @@ Dog::Dog(const Dog& dog)
 Dog& Dog::operator=(const Dog& dog)
 {
 	std::cout << "Dog Assignement Constructor" << std::endl;
+	if (_brain = NULL)
+		_brain = new Brain();
+	*(_brain) = *(dog._brain);
 	_type = dog._type;
 	return (*this);
 }

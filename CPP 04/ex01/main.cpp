@@ -18,12 +18,23 @@ void	Zoo()
 		animal[i]->makeSound();
 	for(int i = 0; i < 10; i++)
 		delete animal[i];
+
+	// Dog x;
+	// {
+	// 	Dog y = x;
+	// 	Dog s;
+	// 	s = x;
+	// 	std::cout << "***************" << x.getType() << std::endl;
+	// 	std::cout << "***************" << y.getType() << std::endl;
+	// }
 }
 
 int main()
 {
 	
 	Zoo();
+
+	
 	system("leaks OnFire");
 	return 0;
 }
