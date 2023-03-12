@@ -1,27 +1,41 @@
 #include "Bureaucrat.hpp"
 
+// member Functions
+void	Bureaucrat::signForm(Form& form)
+{
+	try
+	{
+		form.beSigned(*this);
+		std::cout << _name << " signed " << form.getFormName() << std::endl;
+	}
+	catch (std::exception &exp)
+	{
+		std::cout << _name << " couldn't sign " << form.getFormName() << " because " << exp.what() << std::endl;
+	}
+}
+
 // exception class
 Bureaucrat::GradeTooLowException::GradeTooLowException()
 {
-	throw std::runtime_error("Grade of Bureaucrat is too Low");
+	throw std::runtime_error("Exception : Grade of Bureaucrat is too Low");
 }
 
 Bureaucrat::GradeTooHighException::GradeTooHighException()
 {
-	throw std::runtime_error("Grade of Bureaucrat is too Hight");
+	throw std::runtime_error("Exception : Grade of Bureaucrat is too Hight");
 }
 
 // increment and decrement grade
 void	Bureaucrat::incrementGrade()
 {
 	if (++_grade > 150)
-		GradeTooHighException tooHigh;
+		Bureaucrat::GradeTooHighException();
 }
 
 void	Bureaucrat::decrementGrade()
 {
 	if (--_grade < 1)
-		GradeTooLowException tooLow;
+		Bureaucrat::GradeTooLowException();
 }
 
 // getters
@@ -43,9 +57,9 @@ Bureaucrat::Bureaucrat()
 Bureaucrat::Bureaucrat(const std::string& name, int grade): _name(name), _grade(grade)
 {
 	if (grade > 150)
-		GradeTooHighException tooHigh;
+		Bureaucrat::GradeTooHighException();
 	else if (grade < 1)
-		GradeTooLowException tooLow;
+		Bureaucrat::GradeTooLowException();
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat& bureaucrat): _name(bureaucrat._name), _grade(bureaucrat._grade)

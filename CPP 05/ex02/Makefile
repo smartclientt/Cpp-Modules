@@ -1,6 +1,8 @@
-NAME		=	maggots
-SRCS		=	main.cpp Bureaucrat.cpp Form.cpp
-HEADRS		=	Bureaucrat.hpp Form.hpp
+NAME		=	28B_not_28C
+SRCS		=	main.cpp Bureaucrat.cpp AForm.cpp	\
+				PresidentialPardonForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp
+HEADRS		=	Bureaucrat.hpp AForm.hpp 			\
+				PresidentialPardonForm.hpp RobotomyRequestForm.hpp ShrubberyCreationForm.hpp
 
 OBJS		=	$(SRCS:%.cpp=%.o)
 CXX			=	c++

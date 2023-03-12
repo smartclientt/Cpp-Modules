@@ -1,21 +1,24 @@
 #include "Form.hpp"
 
-
 // sign a Form
 void	Form::beSigned(const Bureaucrat& bureaucrat)
 {
-	;
+	if (_is_signed)
+		throw std::runtime_error(": The form is already signed");
+	if (bureaucrat.getGrade() > _grade_sign)
+		Form::GradeTooLowException();
+	_is_signed = true;
 }
 
 // exception class
 Form::GradeTooLowException::GradeTooLowException()
 {
-	throw std::runtime_error("Grade of Form is too Low");
+	throw std::runtime_error("Exception : Grade of Form is too Low");
 }
 
 Form::GradeTooHighException::GradeTooHighException()
 {
-	throw std::runtime_error("Grade of Form is too Hight");
+	throw std::runtime_error("Exception : Grade of Form is too Hight");
 }
 
 // getters
@@ -29,12 +32,12 @@ bool				Form::getIsSigned() const
 	return _is_signed;
 }
 
-const int			Form::getGradeSign() const
+const int&			Form::getGradeSign() const
 {
 	return _grade_sign;
 }
 
-const int			Form::getGradeExec() const
+const int&			Form::getGradeExec() const
 {
 	return _grade_exec;
 }

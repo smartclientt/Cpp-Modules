@@ -1,5 +1,30 @@
 #include "Bureaucrat.hpp"
 
+// member Functions
+void		Bureaucrat::executeForm(AForm const& form)
+{
+	try
+	{
+		form.beSigned(*this);
+	}
+	catch (std::exception &exp)
+	{
+		;
+	}
+}
+
+void	Bureaucrat::signForm(AForm& form)
+{
+	try
+	{
+		form.beSigned(*this);
+		std::cout << _name << " signed " << form.getFormName() << std::endl;
+	}
+	catch (std::exception &exp)
+	{
+		std::cout << _name << " couldn't sign " << form.getFormName() << " because " << exp.what() << std::endl;
+	}
+}
 
 // exception class
 Bureaucrat::GradeTooLowException::GradeTooLowException()

@@ -3,9 +3,10 @@
 #include <iostream>
 #include <exception>
 #include <stdexcept>
-#include "Form.hpp"
+#include <fstream>
+#include "AForm.hpp"
 
-class Form;
+class AForm;
 
 class	Bureaucrat
 {
@@ -34,7 +35,8 @@ class	Bureaucrat
 		std::string	getName() const;
 		int			getGrade() const;
 
-		void	signForm(Form& form);
+		void		signForm(AForm& form);
+		void		executeForm(AForm const& form);
 	private :
 		const std::string	_name;
 		int					_grade;
