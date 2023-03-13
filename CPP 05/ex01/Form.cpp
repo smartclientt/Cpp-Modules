@@ -51,18 +51,18 @@ Form::Form(const std::string& form_name, const int grade_sign, const int grade_e
 	_form_name(form_name), _is_signed(false), _grade_sign(grade_sign), _grade_exec(grade_exec)
 {
 	if (_grade_sign > 150 || _grade_exec > 150)
-		;
+		Form::GradeTooLowException();
 	else if (_grade_sign < 1 || _grade_exec < 1)
-		;
+		Form::GradeTooHighException();
 }
 
 Form::Form(const Form& form):
 	_form_name(form._form_name), _is_signed(form._is_signed), _grade_sign(form._grade_sign), _grade_exec(form._grade_exec)
 {
 	if (_grade_sign > 150 || _grade_exec > 150)
-		;
+		Form::GradeTooLowException();
 	else if (_grade_sign < 1 || _grade_exec < 1)
-		;
+		Form::GradeTooHighException();
 }
 
 Form& Form::operator=(const Form& form)
