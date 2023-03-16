@@ -1,6 +1,6 @@
-NAME		=	Convert
-SRCS		=	main.cpp ScalarConverter.cpp
-HEADRS		=	ScalarConverter.hpp
+NAME		=	Serial
+SRCS		=	main.cpp 
+HEADRS		=	
 
 OBJS		=	$(SRCS:%.cpp=%.o)
 CXX			=	c++
