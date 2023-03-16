@@ -1,9 +1,9 @@
 #include "ScalarConverter.hpp"
 
-char ScalarConverter::_my_char = 0;
-int ScalarConverter::_my_int = 0;
-float ScalarConverter::_my_float = 0.0f;
-double ScalarConverter::_my_double = 0.0;
+char    ScalarConverter::_my_char = 0;
+int     ScalarConverter::_my_int = 0;
+float   ScalarConverter::_my_float = 0.0f;
+double  ScalarConverter::_my_double = 0.0;
 
 ScalarConverter::ScalarConverter()
 {}
@@ -28,9 +28,77 @@ ScalarConverter::~ScalarConverter()
 
 void    ScalarConverter::convert(std::string& str)
 {
-    (void)str;
-}
+    try 
+    {
+        parsser(str);
+        try
+        {
+            std::cout << "char: ";
+            if (_my_char < 32 || _my_char > 127)
+                throw std::runtime_error("Non displayable");
+            std::cout << _my_char << std::endl;
+        }
+        catch (const std::exception& exp)
+        {
+            std::cout << exp.what() << std::endl;
+        }
+        try
+        {
+            std::cout << "Int: ";
+            if (_my_double > std::numeric_limits<int>::max() || _my_double < std::numeric_limits<int>::min())
+                throw std::runtime_error("Out of Range");
+            else if (std::isnan(_my_double))
+                throw std::runtime_error("Impossible");
+            std::cout << _my_int << std::endl;
+        }
+        catch (const std::exception& exp)
+        {
+            std::cout << exp.what() << std::endl;
+        }
+        try
+        {
+            std::cout << "float: ";
+            if (_my_double > std::numeric_limits<float>::max() || _my_double < -std::numeric_limits<float>::max())
+                throw std::runtime_error("Out of Range");
+            double d;
+	        double f;
+    
+	        f = modf(_my_float, &d);
+            if (std::isnan(_my_double))
+                std::cout << _my_float << "f" << std::endl;
+            else if (f > 0.0)
+                std::cout << _my_float << "f" << std::endl;
+            else
+                std::cout << _my_float << ".0f" << std::endl;
+        }
+        catch (const std::exception& exp)
+        {
+            std::cout << exp.what() << std::endl;
+        }
+        try
+        {
+            std::cout << "double: ";
+            double d;
+	        double f;
 
+	        f = modf(_my_double, &d);
+            if (std::isnan(_my_double))
+                std::cout << _my_float << std::endl;
+            else if (f > 0.0)
+                std::cout << _my_double << std::endl;
+            else
+                std::cout << _my_double << ".0" << std::endl;
+        }
+        catch (const std::exception& exp)
+        {
+            std::cout << exp.what() << std::endl;
+        }
+        
+    } catch (const std::exception& exp)
+    {
+        std::cerr << exp.what() << std::endl;
+    }
+}
 
 void    ScalarConverter::parsser(std::string& str)
 {
@@ -38,123 +106,77 @@ void    ScalarConverter::parsser(std::string& str)
     {
         if (!isdigit(str[0]))
         {
-            _my_char = str[0];
+            _my_double = str[0];
             convertChar();
         } else {
-            _my_int = atoi(str.c_str());
+            _my_double = atof(str.c_str());
             convertInt();
         }
     }
     else
     {
-        int i = 0;
-        if (str[i] == '+' || str[i] == '-')
-            i++;
-        for(; isdigit(str[i]); i++);
-        if (!str[i])
+        if (std::isnan(atof(str.c_str())))
         {
-            _my_int = static_cast<int>(atof(str.c_str()));
-            convertInt();
-        } else if (str[i] == '.')
+            _my_double = atof(str.c_str());
+            convertFloat();
+        }
+        else
         {
-            i++;
+            int i = 0;
+            if (str[i] == '+' || str[i] == '-')
+                i++;
             for(; isdigit(str[i]); i++);
-            std::cerr << "hoooolllllaaaa" << str[i] << std::endl;
             if (!str[i])
             {
-                _my_double = static_cast<double>(atof(str.c_str()));
-                convertDouble();
-            } else if(str[i] == 'f' && !str[i + 1]) {
-                _my_float = static_cast<float>(atof(str.c_str()));
-                convertFloat();
+                _my_double = atof(str.c_str());
+                convertInt();
+            } else if (str[i] == '.')
+            {
+                i++;
+                for(; isdigit(str[i]); i++);
+                if (!str[i])
+                {
+                    _my_double = atof(str.c_str());
+                    convertDouble();
+                } else if(str[i] == 'f' && !str[i + 1]) {
+                    _my_double = atof(str.c_str());
+                    convertFloat();
+                }
+                else
+                    is_not_number();
             }
             else
                 is_not_number();
         }
-        else
-            is_not_number();
     }
 }
 
 void    ScalarConverter::convertChar()
 {
-    // _my_int = static_cast<int>(_my_char);
-    // _my_float = static_cast<float>(_my_char);
-    // _my_double = static_cast<double>(_my_char);
-    std::cerr << "CHAR CONVERTER" << std::endl;
+    _my_char = static_cast<char>(_my_double);
+    _my_int = static_cast<int>(_my_double);
+    _my_float = static_cast<float>(_my_double);
 }
 void    ScalarConverter::convertInt()
 {
-    std::cerr << "INT CONVERTER" << std::endl;
+    _my_char = static_cast<char>(_my_double);
+    _my_int = static_cast<int>(_my_double);
+    _my_float = static_cast<float>(_my_double);;
 }
 void    ScalarConverter::convertFloat()
 {
-    std::cerr << "FLOAT CONVERTER" << std::endl;
+    _my_char = static_cast<char>(_my_double);
+    _my_int = static_cast<int>(_my_double);
+    _my_float = static_cast<float>(_my_double);
 }
 void    ScalarConverter::convertDouble()
 {
-    std::cerr << "DOUBLE CONVERTER" << std::endl;
+    _my_char = static_cast<char>(_my_double);
+    _my_int = static_cast<int>(_my_double);
+    _my_float = static_cast<float>(_my_double);
 }
 
 void     ScalarConverter::is_not_number()
 {
-    std::cerr << "Pls Enter a correct number !!!" << std::endl;
+    throw std::runtime_error("Pls Enter a correct number !!!");
 }
-
-
-// void    ScalarConverter::parsser(std::string& str)
-// {
-//     if (str.length() == 1)
-//     {
-//         if (!isdigit(str[0]))
-//         {
-//             if (str[0] < 32 && str[0] > 127)
-//                 throw std::runtime_error("Non displayable");
-//             else
-//             {
-//                 _my_char = str[0];
-//                 convertChar();
-//             }
-//         } else {
-//             _my_int = atoi(str.c_str());
-//             convertInt();
-//         }
-//     }
-//     else
-//     {
-//         int i = 0;
-//         if (str[i] == '+' || str[i] == '-')
-//             i++;
-//         for(i; isdigit(str[i]); i++);
-//         if (!str[i])
-//         {
-//             if(atof(str.c_str()) > std::numeric_limits<int>::max() || atof(str.c_str()) < std::numeric_limits<int>::min())
-//                 throw std::runtime_error("Out of Range");
-//             else
-//             {
-//                 _my_int = static_cast<int>(atof(str.c_str()));
-//                 convertInt();
-//             }
-//         } else if (str[i] == '.')
-//         {
-//             for(i; isdigit(str[i]); i++);
-//             if (!str[i])
-//             {
-//                 if(atof(str.c_str()) > std::numeric_limits<double>::max() || atof(str.c_str()) < std::numeric_limits<double>::min())
-//                     throw std::runtime_error("Out of Range");
-//                 else {
-//                     _my_double = static_cast<double>(atof(str.c_str()));
-//                     convertDouble();
-//                 }
-//             } else if(str[i] == 'f' && !str[i + 1]) {
-//                 if(atof(str.c_str()) > std::numeric_limits<float>::max() || atof(str.c_str()) < std::numeric_limits<float>::min())
-//                     throw std::runtime_error("Out of Range");
-//                 else {
-//                     _my_float = static_cast<float>(atof(str.c_str()));
-//                     convertFloat();
-//                 }
-//             }
-//         }
-        
-//     }
-// }

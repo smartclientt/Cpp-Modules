@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <limits>
+#include <cmath>
 
 class ScalarConverter
 {
@@ -21,9 +22,9 @@ class ScalarConverter
         static void     convertDouble();
 
         static void     is_not_number();
-
-        static char _my_char;
-        static int _my_int;
-        static float _my_float;
-        static double _my_double;
+    private:
+        static char     _my_char;
+        static int      _my_int;
+        static float    _my_float;
+        static double   _my_double;
 };
