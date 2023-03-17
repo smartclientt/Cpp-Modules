@@ -47,7 +47,7 @@ void    ScalarConverter::convert(std::string& str)
             std::cout << "Int: ";
             if (_my_double > std::numeric_limits<int>::max() || _my_double < std::numeric_limits<int>::min())
                 throw std::runtime_error("Out of Range");
-            else if (std::isnan(_my_double))
+            else if (_my_double != _my_double)
                 throw std::runtime_error("Impossible");
             std::cout << _my_int << std::endl;
         }
@@ -64,9 +64,7 @@ void    ScalarConverter::convert(std::string& str)
 	        double f;
     
 	        f = modf(_my_float, &d);
-            if (std::isnan(_my_double))
-                std::cout << _my_float << "f" << std::endl;
-            else if (f > 0.0)
+            if (_my_double != _my_double || f > 0.0)
                 std::cout << _my_float << "f" << std::endl;
             else
                 std::cout << _my_float << ".0f" << std::endl;
@@ -82,9 +80,9 @@ void    ScalarConverter::convert(std::string& str)
 	        double f;
 
 	        f = modf(_my_double, &d);
-            if (std::isnan(_my_double))
-                std::cout << _my_float << std::endl;
-            else if (f > 0.0)
+            if (_my_double != _my_double || f > 0.0
+                || _my_double == std::numeric_limits<double>::infinity()
+                || _my_double == -std::numeric_limits<double>::infinity())
                 std::cout << _my_double << std::endl;
             else
                 std::cout << _my_double << ".0" << std::endl;
@@ -115,7 +113,9 @@ void    ScalarConverter::parsser(std::string& str)
     }
     else
     {
-        if (std::isnan(atof(str.c_str())))
+        if (atof(str.c_str()) != atof(str.c_str())
+            || atof(str.c_str()) == std::numeric_limits<double>::infinity()
+            || atof(str.c_str()) == -std::numeric_limits<double>::infinity())
         {
             _my_double = atof(str.c_str());
             convertFloat();
