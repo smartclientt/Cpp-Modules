@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <exception>
 
 typedef struct	s_data{
 	std::string	str;

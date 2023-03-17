@@ -46,7 +46,7 @@ void	identify(Base& p)
 		std::cout << "Pointer Type is : A" << std::endl;
 		return ;
 	}
-	catch (std::bad_cast& exp)
+	catch (std::exception& exp)
 	{
 		try
 		{
@@ -54,7 +54,7 @@ void	identify(Base& p)
 			std::cout << "Pointer Type is : B" << std::endl;
 			return ;
 		}
-		catch (std::bad_cast& exp)
+		catch (std::exception& exp)
 		{
 			try
 			{
@@ -62,7 +62,7 @@ void	identify(Base& p)
 				std::cout << "Pointer Type is : C" << std::endl;
 				return ;
 			}
-			catch (std::bad_cast& exp)
+			catch (std::exception& exp)
 			{
 				std::cout << exp.what() << std::endl;
 				return ;
