@@ -1,7 +1,9 @@
+#pragma once
 #include <iostream>
 
 typedef struct	s_data{
-	int		my_data;
+	std::string	str;
+	int			nbr;
 } Data;
 
 class Serializer
@@ -12,6 +14,6 @@ class Serializer
 		Serializer& operator=(const Serializer& serial);
 		~Serializer();
 
-		uintptr_t	serialize(Data* ptr);
-		Data*		deserialize(uintptr_t raw);
+		static uintptr_t	serialize(Data* ptr);
+		static Data*		deserialize(uintptr_t raw);
 };

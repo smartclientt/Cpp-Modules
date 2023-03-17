@@ -1,6 +1,6 @@
-NAME		=	Serial
-SRCS		=	main.cpp Serializer.cpp
-HEADRS		=	Serializer.hpp
+NAME		=	Identify
+SRCS		=	main.cpp A.cpp B.cpp Base.cpp C.cpp
+HEADRS		=	A.hpp B.hpp Base.hpp C.hpp
 
 OBJS		=	$(SRCS:%.cpp=%.o)
 CXX			=	c++
