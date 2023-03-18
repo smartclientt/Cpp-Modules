@@ -1,7 +1,7 @@
 #include "whatever.hpp"
 
 template <typename	T>
-T	max(T x, T y)
+T	max(const T& x, const T& y)
 {
 	return (x > y) ? x: y;
 }
@@ -12,11 +12,10 @@ void	swap(T& x, T& y)
 	T	tmp = x;
 	x	= y;
 	y	= tmp;
-	
 }
 
 template <typename	T>
-T	min(T x, T y)
+T	min(const T& x, const T& y)
 {
 	return (x < y) ? x: y;
 }
