@@ -1,6 +1,6 @@
 NAME		=	ex02
 SRCS		=	main.cpp 
-HEADRS		=	iter.hpp
+HEADRS		=	Array.hpp
 
 OBJS		=	$(SRCS:%.cpp=%.o)
 CXX			=	c++
