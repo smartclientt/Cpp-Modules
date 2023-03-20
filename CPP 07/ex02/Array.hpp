@@ -20,7 +20,10 @@ class Array
 		}
 		Array& operator=(const Array& arr)
 		{
+			if (&arr == this)
+				return (*this);
 			delete [] _content;
+			_content = nullptr;
 			_lenght = arr._lenght;
 			if (_lenght >= 0)
 				_content = new T[_lenght]();
@@ -42,7 +45,7 @@ class Array
 			return (_content);
 		}
 
-		T&	operator[](int index) const 
+		T&	operator[](int index)
 		{
 			if (index >= _lenght || index < 0)
 				throw	std::runtime_error("\nException: The index is out of buond");

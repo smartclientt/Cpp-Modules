@@ -2,9 +2,9 @@
 
 void    f()
 {
-    Array<int>      A(-1);
+    Array<int>      A(10);
     Array<int>      B(A);
-    Array<int>      C(5);
+    Array<int>      C;
     C = A;
 
     if (A.get_content() == NULL)
