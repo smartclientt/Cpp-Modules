@@ -2,7 +2,7 @@
 
 void    f()
 {
-    Array<int>      A(1);
+    Array<int>      A(-1);
     Array<int>      B(A);
     Array<int>      C(5);
     C = A;
@@ -42,6 +42,6 @@ void    f()
 int main()
 {
     f();
-    // system("leaks ex02");
+    system("leaks ex02");
     return 0;
 }
