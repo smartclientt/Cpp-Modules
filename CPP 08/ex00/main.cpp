@@ -10,7 +10,6 @@ int main( void )
 		srand(time(NULL));
 		for(int i = 0; i < 5; i++)
 			v1.push_back(rand());
-		
 		for(std::vector<int>::iterator i = begin(v1); i < end(v1); i++)
 			std::cout << *(i.base()) << std::endl;
 

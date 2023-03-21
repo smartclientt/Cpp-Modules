@@ -1,6 +1,6 @@
-NAME		=	ex00
-SRCS		=	main.cpp 
-HEADRS		=	
+NAME		=	ex01
+SRCS		=	main.cpp Span.cpp
+HEADRS		=	Span.hpp
 
 OBJS		=	$(SRCS:%.cpp=%.o)
 CXX			=	c++
