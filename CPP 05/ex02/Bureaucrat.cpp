@@ -39,16 +39,16 @@ Bureaucrat::GradeTooHighException::GradeTooHighException()
 }
 
 // increment and decrement grade
-void	Bureaucrat::incrementGrade()
-{
-	if (++_grade > 150)
-		Bureaucrat::GradeTooHighException();
-}
-
 void	Bureaucrat::decrementGrade()
 {
-	if (--_grade < 1)
+	if (++_grade > 150)
 		Bureaucrat::GradeTooLowException();
+}
+
+void	Bureaucrat::incrementGrade()
+{
+	if (--_grade < 1)
+		Bureaucrat::GradeTooHighException();
 }
 
 // getters

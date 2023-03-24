@@ -8,8 +8,11 @@ int main()
 		Bureaucrat B("Bureaucrate_B", 50);
 		Bureaucrat C("Bureaucrate_C", 10);
 
-		A.incrementGrade();
-		std::cout << B;
+		A.decrementGrade();
+		std::cout << B << std::endl;
+		std::cout << A << std::endl;
+		A.decrementGrade();
+		std::cout << A << std::endl;
 
 	}
 	catch (std::runtime_error& exception)

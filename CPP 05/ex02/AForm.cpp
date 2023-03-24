@@ -4,7 +4,7 @@
 void	AForm::beSigned(const Bureaucrat& bureaucrat)
 {
 	if (_is_signed)
-		throw std::runtime_error(": The form is already signed");
+		throw std::runtime_error("The form is already signed");
 	if (bureaucrat.getGrade() > _grade_sign)
 		AForm::GradeTooLowException();
 	_is_signed = true;

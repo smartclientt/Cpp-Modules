@@ -2,7 +2,7 @@
 
 
 Intern::Intern()
-{
+{ 
 }
 Intern::Intern(const Intern& intern)
 {
