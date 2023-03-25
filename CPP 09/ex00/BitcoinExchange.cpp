@@ -21,10 +21,17 @@ void	BitcoinExchange::check_file(std::ifstream& file)
 	if (!file.is_open())
 		throw std::runtime_error("Error: could not open file");
 	std::string	line;
-	for(int i = 0; getline(file, line);i++)
+	for(bool i = true; getline(file, line);)
 	{
-		if (i == 0 && line == "date | value")
+		if (line.empty())
 			continue;
+		int j = 0;
+		for(; isspace(line[j]) || iswspace(line[j]); j++);
+		if (line[j] == '\0')
+			continue;
+		if (i == true && line == "date | value")
+			continue;
+		i = false;
 		check_valid_input(line);
 	}
 }
@@ -32,16 +39,14 @@ void	BitcoinExchange::check_valid_input(std::string& line)
 {
 	try
 	{
-		if (line.empty())
-			return ;
-		int i = 0;
-		for(; isspace(line[i]) || iswspace(line[i]); i++);
-		if (line[i] == '\0')
-			return ;
 		if (std::count(line.begin(), line.end(), '|') != 1 || std::count(line.begin(), line.end(), ' ') != 2
 			|| line.find(" | ") == std::string::npos || !check_date_and_value(line))
 			throw std::runtime_error("Error: bad input => " + line);
-		std::cout << line << std::endl;
+		std::map<std::string, double>::iterator it = _data_base.upper_bound(_input_data.first);
+		if (it == _data_base.begin())
+			throw	std::runtime_error("No data mutch in Data Base");
+		it--;
+		std::cout << _input_data.first << " => " << _input_data.second << " = "  <<  it->second * _input_data.second << std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -116,12 +121,18 @@ void	BitcoinExchange::fillMap(std::ifstream& data_file)
 {
 	if (!data_file.is_open())
 		throw std::runtime_error("Error: No data to work on");
-	for(std::string line; getline(data_file, line);)
+	int i = 0;
+	for(std::string line; getline(data_file, line); i++)
 	{
+		if (i == 0)
+			continue;
 		std::pair<std::string, double> data_line;
 		data_line.first = line.substr(0, line.find(','));
-		data_line.second = atof(line.substr(11).c_str());
-		std::cout << line.substr(11).c_str() << " !! " << data_line.second << std::endl;
+		data_line.second = atof(line.substr(line.find(',') + 1).c_str());
 		_data_base.insert(data_line);
 	}
+	// for(std::map<std::string, double>::iterator it = _data_base.begin(); it != _data_base.end(); it++)
+	// {
+	// 	std::cout << it->first << " ||| " << it->second << std::endl;
+	// }
 }

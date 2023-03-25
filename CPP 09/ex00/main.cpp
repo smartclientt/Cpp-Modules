@@ -9,8 +9,8 @@ int main(int ac, char **av)
 		std::ifstream input_file(av[1]);
 		std::ifstream data_file("data.csv");
 		BitcoinExchange btc;
-		btc.check_file(input_file);
 		btc.fillMap(data_file);
+		btc.check_file(input_file);
 	}
 	catch(const std::exception& exp)
 	{
