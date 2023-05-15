@@ -52,9 +52,7 @@ void	RPN::RPN_Calcul(std::string& args)
 		if (nbr.empty())
 			continue;
 		if (isnumber(nbr[0]))
-		{
 			_equation.push(atoi(nbr.c_str()));
-		}
 		else
 		{
 			double nbr2 = _equation.top();

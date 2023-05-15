@@ -1,6 +1,6 @@
-NAME		=	ex01
-SRCS		=	main.cpp 
-HEADRS		=	iter.hpp
+NAME		=	PmergeMe
+SRCS		=	main.cpp PmergeMe.cpp
+HEADRS		=	PmergeMe.hpp
 
 OBJS		=	$(SRCS:%.cpp=%.o)
 CXX			=	c++

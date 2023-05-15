@@ -44,7 +44,7 @@ void	BitcoinExchange::check_valid_input(std::string& line)
 			throw std::runtime_error("Error: bad input => " + line);
 		std::map<std::string, double>::iterator it = _data_base.upper_bound(_input_data.first);
 		if (it == _data_base.begin())
-			throw	std::runtime_error("No data mutch in Data Base");
+			throw	std::runtime_error("No data match in Data Base!");
 		it--;
 		std::cout << _input_data.first << " => " << _input_data.second << " = "  <<  it->second * _input_data.second << std::endl;
 	}
