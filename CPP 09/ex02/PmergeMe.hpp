@@ -14,7 +14,6 @@ class PmergeMe
 
 		
 	private :
-		std::deque<int>		_deque_data;
 		std::vector<int>	_vector_data;
-		static int			k;
+		std::deque<int>		_deque_data;
 };

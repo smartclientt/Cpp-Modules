@@ -1,18 +1,9 @@
-#include "RPN.hpp"
+#include "PmergeMe.hpp"
 #include <string>
 
 
-int main(int ac, char **av)
+int main()
 {
-	try
-	{
 	
-		s.stoi();
-		
-	}
-	catch(...)
-	{
-		std::cout << exp.what() << '\n';
-	}
 	return 0;
 }
