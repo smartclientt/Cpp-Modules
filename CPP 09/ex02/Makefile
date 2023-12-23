@@ -6,6 +6,7 @@ OBJS		=	$(SRCS:%.cpp=%.o)
 CXX			=	c++
 CXXFLAGS	=	-Wall -Werror -Wextra -std=c++98
 RM			=	rm -rf
+# RM			=	del /q
 
 all			:	$(NAME)
 
