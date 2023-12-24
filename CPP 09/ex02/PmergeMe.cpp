@@ -54,12 +54,12 @@ void PmergeMe::fillDeque(int ac, char **av) {
 	}
 }
 
-void PmergeMe::printContainer() const{
-	std::cout << "Vector: ";
+void PmergeMe::printBeforContainer() const{
+	std::cout << "Befor_vec : ";
 	for (size_t i = 0; i < _vector_data.size(); i++)
 		std::cout << _vector_data[i] << " ";
 	std::cout << std::endl;
-	std::cout << "Deque: ";
+	std::cout << "Befor_Deque : ";
 	for (size_t i = 0; i < _deque_data.size(); i++)
 		std::cout << _deque_data[i] << " ";
 	std::cout << std::endl;
@@ -70,24 +70,16 @@ void PmergeMe::printContainerChain() const {
 	for (size_t i = 0; i < _mainChainVec.size(); i++)
 		std::cout << _mainChainVec[i] << " ";
 	std::cout << std::endl;
-	std::cout << "Pend Vector: ";
-	for (size_t i = 0; i < _pendChainVec.size(); i++)
-		std::cout << _pendChainVec[i] << " ";
-	std::cout << std::endl;
-	std::cout << "Mian Deque: ";
+	std::cout << "Main Deque : ";
 	for (size_t i = 0; i < _mainChainDeque.size(); i++)
 		std::cout << _mainChainDeque[i] << " ";
-	std::cout << std::endl;
-	std::cout << "Pend Deque: ";
-	for (size_t i = 0; i < _pendChainDeque.size(); i++)
-		std::cout << _pendChainDeque[i] << " ";
 	std::cout << std::endl;
 }
 
 void PmergeMe::swapPairsVec()
 {
     for (size_t i = 0; i < _vector_data.size(); i += 2 ) { 
-        if (_vector_data[i] < _vector_data[i+1]) {
+        if (_vector_data[i] < _vector_data[i+1] && i + 1 < _vector_data.size()) {
             std::swap(_vector_data[i], _vector_data[i+1]);   
 		}
     }
@@ -130,89 +122,30 @@ void PmergeMe::getChainsDeque()
 	}
 }
 
-void PmergeMe::mergeVec(std::vector<unsigned int> &chain, int p, int q, int r) {
-	int n1 = q - p + 1;
-	int n2 = r - q;
-
-	std::vector<size_t> L(n1), R(n2);
-
-	for (int i = 0; i < n1; i++)
-		L[i] = chain[p + i];
-	for (int j = 0; j < n2; j++)
-		R[j] = chain[q + 1 + j];
-
-	int i, j, k;
-	i = 0;
-	j = 0;
-	k = p;
-
-	while (i < n1 && j < n2) {
-		if (L[i] <= R[j]) 
-			chain[k] = L[i++];
-		else
-			chain[k] = R[j++];
-		k++;
-	}
-	while (i < n1) {
-		chain[k] = L[i];
-		i++;
-		k++;
-	}
-
-	while (j < n2) {
-		chain[k] = R[j];
-		j++;
-		k++;
-	}
-}
-void PmergeMe::mergeDeque(std::deque<unsigned int> &chain, int p, int q, int r) {
-	int n1 = q - p + 1;
-	int n2 = r - q;
-
-	std::vector<size_t> L(n1), R(n2);
-
-	for (int i = 0; i < n1; i++)
-		L[i] = chain[p + i];
-	for (int j = 0; j < n2; j++)
-		R[j] = chain[q + 1 + j];
-
-	int i, j, k;
-	i = 0;
-	j = 0;
-	k = p;
-
-	while (i < n1 && j < n2) {
-		if (L[i] <= R[j]) 
-			chain[k] = L[i++];
-		else
-			chain[k] = R[j++];
-		k++;
-	}
-	while (i < n1) 
-		chain[k++] = L[i++];
-	while (j < n2)
-		chain[k++] = R[j++];
-}
-
-void PmergeMe::mergeSortVec(int p, int r)
+void PmergeMe::mergeSortVec(std::vector<unsigned int> &chain_part)
 {
-	if (p < r) {
-		int q = (p + r) / 2;
-		mergeSortVec(p, q);
-		mergeSortVec(q + 1, r);
-		mergeVec(_mainChainVec, p, q, r);
-	}
-}
-
-void PmergeMe::mergeSortDeque(int p, int r)
-{
-	if (p < r) {
-		int q = (p + r) / 2;
-		mergeSortDeque(p, q);
-		mergeSortDeque(q + 1, r);
-		mergeDeque(_mainChainDeque ,p, q, r);
-	}
+	if (chain_part.size() < 2)
+		return;
+	size_t middle = (chain_part.size() + 1) / 2;
 	
+	std::vector<unsigned int> right__part(chain_part.begin() + middle, chain_part.end());
+	std::vector<unsigned int> left_part(chain_part.begin(), chain_part.begin() + middle);
+	mergeSortVec(left_part);
+	mergeSortVec(right__part);	
+	std::merge(left_part.begin(), left_part.end(), right__part.begin(), right__part.end(), chain_part.begin());
+}
+
+void PmergeMe::mergeSortDeque(std::deque<unsigned int> &chain_part)
+{
+	if (chain_part.size() < 2)
+		return;
+	size_t middle = (chain_part.size() + 1) / 2;
+	
+	std::deque<unsigned int> right__part(chain_part.begin() + middle, chain_part.end());
+	std::deque<unsigned int> left_part(chain_part.begin(), chain_part.begin() + middle);
+	mergeSortDeque(left_part);
+	mergeSortDeque(right__part);	
+	std::merge(left_part.begin(), left_part.end(), right__part.begin(), right__part.end(), chain_part.begin());
 }
 
 
@@ -245,13 +178,16 @@ void PmergeMe::chainMatchingDeque()
 void PmergeMe::calculJacobVec() {
 	size_t prev = 1;
     size_t pre_prev = 0;
-    size_t current;
+    size_t current = 0;
 
-    for (size_t i = 2; i < _pendChainVec.size(); i++)
+	_jacobVec.push_back(0);
+    for (size_t i = 0; i < _pendChainVec.size(); i++)
     {
         current = prev + 2 * pre_prev;
-        if (current <= _pendChainVec.size())
-            _jacobVec.push_back(current);
+        // if (current <= _pendChainVec.size())
+		if (current > _pendChainVec.size())
+			break;
+        _jacobVec.push_back(current);
         size_t tmp = current;
         while (tmp - prev > 1)
         {
@@ -267,13 +203,16 @@ void PmergeMe::calculJacobVec() {
 void PmergeMe::calculJacobDeque() {
 	size_t prev = 1;
     size_t pre_prev = 0;
-    size_t current;
+    size_t current = 0;
 
-    for (size_t i = 2; i < _pendChainDeque.size(); i++)
+	_jacobDeque.push_back(0);
+    for (size_t i = 0; i < _pendChainDeque.size(); i++)
     {
         current = prev + 2 * pre_prev;
-        if (current <= _pendChainDeque.size())
-            _jacobDeque.push_back(current);
+        // if (current <= _pendChainDeque.size())
+		if (current > _pendChainDeque.size())
+			break;
+        _jacobDeque.push_back(current);
         size_t tmp = current;
         while (tmp - prev > 1)
         {
@@ -288,25 +227,33 @@ void PmergeMe::calculJacobDeque() {
 
 void PmergeMe::insertVec() {
 	_mainChainVec.insert(_mainChainVec.begin(), _pendChainVec[0]);
-	std::cout << "jacobVec size: " << _jacobVec.size() << std::endl;
 	for (size_t i = 1; i < _jacobVec.size(); i++)
 	{
-		if (_jacobVec[i] - 1 == _pendChainVec.size())
-			break;
-		std::cout << _jacobVec[i];
-		std::vector<unsigned int>::iterator index = std::lower_bound(_mainChainVec.begin(), _mainChainVec.end(), _pendChainVec[_jacobVec[i] - 1]);
-		_mainChainVec.insert(index, _pendChainVec[_jacobVec[i] - 1]);
+		if (_jacobVec[i] >= _pendChainVec.size())
+			continue;
+		std::vector<unsigned int>::iterator index = std::lower_bound(_mainChainVec.begin(), _mainChainVec.begin() + _jacobVec[i] + i, _pendChainVec[_jacobVec[i]]);
+		_mainChainVec.insert(index, _pendChainVec[_jacobVec[i]]);
 	}
-	std::cout << std::endl;
 }
 
 void PmergeMe::insertDeque() {
 	_mainChainDeque.insert(_mainChainDeque.begin(), _pendChainDeque[0]);
-	for (size_t i = 1; i < _jacobDeque.size(); i++) {
-		if (_jacobDeque[i] - 1 == _pendChainDeque.size())
-			break;
-		std::deque<unsigned int>::iterator index = std::lower_bound(_mainChainDeque.begin(), _mainChainDeque.end(), _pendChainDeque[_jacobDeque[i] - 1]);
-		_mainChainDeque.insert(index, _pendChainDeque[_jacobDeque[i] - 1]);
+	for (size_t i = 1; i < _jacobDeque.size(); i++)
+	{
+		if (_jacobDeque[i] >= _pendChainDeque.size())
+			continue;
+		std::deque<unsigned int>::iterator index = std::lower_bound(_mainChainDeque.begin(), _mainChainDeque.begin() + _jacobDeque[i] + i, _pendChainDeque[_jacobDeque[i]]);
+		_mainChainDeque.insert(index, _pendChainDeque[_jacobDeque[i]]);
 	}
 }
 
+void PmergeMe::printAfterContainer() const {
+	std::cout << "After_Vec : ";
+	for (size_t i = 0; i < _mainChainVec.size(); i++)
+		std::cout << _mainChainVec[i] << " ";
+	std::cout << std::endl;
+	std::cout << "After_Deque : ";
+	for (size_t i = 0; i < _mainChainDeque.size(); i++)
+		std::cout << _mainChainDeque[i] << " ";
+	std::cout << std::endl;
+}

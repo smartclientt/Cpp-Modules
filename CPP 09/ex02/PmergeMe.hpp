@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <stdlib.h>
 #include <algorithm>
+#include <climits>
 
 class PmergeMe
 {
@@ -18,7 +19,8 @@ class PmergeMe
 		void fillVec(int ac, char **av);
 		void fillDeque(int ac, char **av);
 
-		void printContainer() const;
+		void printBeforContainer() const;
+		void printAfterContainer() const;
 		void printContainerChain() const ;
 
 		void swapPairsVec();
@@ -26,11 +28,8 @@ class PmergeMe
 		void getChainsVec();
 		void getChainsDeque();
 
-		void mergeSortVec(int p, int r);
-		void mergeSortDeque(int p, int r);
-
-		void mergeVec(std::vector<unsigned int> &arr, int p, int q, int r);
-		void mergeDeque(std::deque<unsigned int> &arr, int p, int q, int r);
+		void mergeSortVec(std::vector<unsigned int> &chain_part);
+		void mergeSortDeque(std::deque<unsigned int> &chain_part);
 
 		void chainMatchingVec();
 		void chainMatchingDeque();
@@ -40,6 +39,7 @@ class PmergeMe
 
 		void insertVec();
 		void insertDeque();
+
 	public :
 		std::vector<unsigned int>		_vector_data;
 		std::deque<unsigned int>		_deque_data;
